@@ -23,11 +23,11 @@ kind: Service
 metadata:
   name: service-weather-app
 spec:
-  externalTrafficPolicy: Cluster
   ports:
   - port: 80
     protocol: TCP
     targetPort: 5070
-    type: LoadBalancer
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
   selector:
     app: weather-app
