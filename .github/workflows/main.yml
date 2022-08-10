@@ -35,7 +35,7 @@ jobs:
         repository: ${{ secrets.repository }}
         image:  weather-app
         folder: service/db-svc
-        branch: $default-branch
+        branch: main
         tag: ${{ github.sha }}
     
     # Logs in with your Azure credentials
