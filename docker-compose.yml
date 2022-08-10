@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  dbsvc:
+    image: weather-app
+    build:
+      context: .
+      dockerfile: service/db-svc/Dockerfile
+    ports:
+      - 5070:5070
+      - 7278:7278
