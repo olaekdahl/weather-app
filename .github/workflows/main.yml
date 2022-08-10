@@ -34,7 +34,7 @@ jobs:
         registry: ${{ secrets.registry }}
         repository: ${{ secrets.repository }}
         image:  weather-app
-        folder: service
+        folder: service/db-svc
         branch: $default-branch
         tag: ${{ github.sha }}
     
