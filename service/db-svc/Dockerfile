@@ -14,8 +14,8 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
 COPY ["db-svc.csproj", "service/db-svc/"]
 RUN dotnet restore "service/db-svc/db-svc.csproj"
-COPY . .
 WORKDIR "/src/service/db-svc"
+COPY . .
 RUN dotnet build "db-svc.csproj" -c Release -o /app/build
 
 FROM build AS publish
