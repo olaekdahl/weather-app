@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "A9aFBGpkF1ULdl822lEq4AbeGqObSN/hrtpp2w5/SFFEItQ5G8TA4ieupvEcQQhY5q3zNLA3riU9TGY6RKqxqw==",
+  "dgSpecHash": "rn/K0hH5TqBJY5obtDEk3pbXhKwF4iLoaDWpI8Im38ZMlzG3nhFs93ihgdX3V2ZiIF9/VYBHAQmLPrl2quiP4A==",
   "success": true,
-  "projectFilePath": "D:\\dev\\docker\\service\\db-svc\\db-svc.csproj",
+  "projectFilePath": "D:\\dev\\aks-deploy-demo\\service\\db-svc\\db-svc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\OlaEkdahl(CIRACON)\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\OlaEkdahl(CIRACON)\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

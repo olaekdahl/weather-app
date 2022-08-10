@@ -214,11 +214,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dev\\docker\\service\\db-svc\\db-svc.csproj",
+      "projectUniqueName": "D:\\dev\\aks-deploy-demo\\service\\db-svc\\db-svc.csproj",
       "projectName": "db-svc",
-      "projectPath": "D:\\dev\\docker\\service\\db-svc\\db-svc.csproj",
+      "projectPath": "D:\\dev\\aks-deploy-demo\\service\\db-svc\\db-svc.csproj",
       "packagesPath": "C:\\Users\\OlaEkdahl(CIRACON)\\.nuget\\packages\\",
-      "outputPath": "D:\\dev\\docker\\service\\db-svc\\obj\\",
+      "outputPath": "D:\\dev\\aks-deploy-demo\\service\\db-svc\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

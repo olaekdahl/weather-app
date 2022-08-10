@@ -23,20 +23,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # Checks out the repository this file is in
-    - uses: actions/checkout@v3
-    - name: ACR build
-      id: build-push-acr
-      uses: azure/acr-build@v1
-      with:
-        service_principal: ${{ secrets.service_principal }}
-        service_principal_password: ${{ secrets.service_principal_password }}
-        tenant: ${{ secrets.tenant }}
-        registry: ${{ secrets.registry }}
-        repository: ${{ secrets.repository }}
-        image:  weather-app
-        folder: ./service/db-svc
-        branch: main
-        tag: ${{ github.sha }}
+    - name: Check out the repo 
+      uses: actions/checkout@v3
+    # Builds and pushes an image up to your Azure Container Registry using using task
+    # - name: ACR build
+    #   id: build-push-acr
+    #   uses: azure/acr-build@v1
+    #   with:
+    #     service_principal: ${{ secrets.service_principal }}
+    #     service_principal_password: ${{ secrets.service_principal_password }}
+    #     tenant: ${{ secrets.tenant }}
+    #     registry: ${{ secrets.registry }}
+    #     repository: ${{ secrets.repository }}
+    #     image:  weather-app
+    #     folder: ./service/db-svc
+    #     branch: main
+    #     tag: ${{ github.sha }}
     
     # Logs in with your Azure credentials
     - name: Azure login
@@ -44,7 +46,7 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
       
-    # Builds and pushes an image up to your Azure Container Registry
+    # Builds and pushes an image up to your Azure Container Registry using az cli
     - name: Build and push image to ACR
       run: |
         az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} ./service/db-svc
