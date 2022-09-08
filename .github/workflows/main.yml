@@ -9,8 +9,8 @@ on:
 env:
   AZURE_CONTAINER_REGISTRY: "webage"
   CONTAINER_NAME: "weather-app"
-  RESOURCE_GROUP: "labResourceGroup"
-  CLUSTER_NAME: "myAKSCluster"
+  RESOURCE_GROUP: "kroger-demo"
+  CLUSTER_NAME: "aks-dev"
   DEPLOYMENT_MANIFEST_PATH: 'deployment-weather-app.yaml'
 
 jobs:
