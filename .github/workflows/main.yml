@@ -9,9 +9,9 @@ on:
 env:
   AZURE_CONTAINER_REGISTRY: "webage"
   CONTAINER_NAME: "weather-app"
-  RESOURCE_GROUP: "kroger-demo"
-  CLUSTER_NAME: "aks-dev"
-  DEPLOYMENT_MANIFEST_PATH: 'deployment-weather-app.yaml'
+  RESOURCE_GROUP: "demo-rg"
+  CLUSTER_NAME: "demo-aks"
+  DEPLOYMENT_MANIFEST_PATH: "deployment-weather-app.yaml"
 
 jobs:
   build:
@@ -22,52 +22,52 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    # Checks out the repository this file is in
-    - name: Check out the repo 
-      uses: actions/checkout@v3
-    # Builds and pushes an image up to your Azure Container Registry using using task
-    # - name: ACR build
-    #   id: build-push-acr
-    #   uses: azure/acr-build@v1
-    #   with:
-    #     service_principal: ${{ secrets.service_principal }}
-    #     service_principal_password: ${{ secrets.service_principal_password }}
-    #     tenant: ${{ secrets.tenant }}
-    #     registry: ${{ secrets.registry }}
-    #     repository: ${{ secrets.repository }}
-    #     image:  weather-app
-    #     folder: ./service/db-svc
-    #     branch: main
-    #     tag: ${{ github.sha }}
-    
-    # Logs in with your Azure credentials
-    - name: Azure login
-      uses: azure/login@v1.4.3
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-      
-    # Builds and pushes an image up to your Azure Container Registry using az cli
-    - name: Build and push image to ACR
-      run: |
-        az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} ./service/db-svc
+      # Checks out the repository this file is in
+      - name: Check out the repo
+        uses: actions/checkout@v3
+      # Builds and pushes an image up to your Azure Container Registry using using task
+      # - name: ACR build
+      #   id: build-push-acr
+      #   uses: azure/acr-build@v1
+      #   with:
+      #     service_principal: ${{ secrets.service_principal }}
+      #     service_principal_password: ${{ secrets.service_principal_password }}
+      #     tenant: ${{ secrets.tenant }}
+      #     registry: ${{ secrets.registry }}
+      #     repository: ${{ secrets.repository }}
+      #     image:  weather-app
+      #     folder: ./service/db-svc
+      #     branch: main
+      #     tag: ${{ github.sha }}
 
-    # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
-    - name: Get K8s context
-      uses: azure/aks-set-context@v2.0
-      with:
-        resource-group: ${{ env.RESOURCE_GROUP }}
-        cluster-name: ${{ env.CLUSTER_NAME }}
+      # Logs in with your Azure credentials
+      - name: Azure login
+        uses: azure/login@v1.4.3
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Attaches ACR to your AKS Cluster
-    # - name: Attach ACR to AKS cluster
-    #   run: |
-    #     az aks update -n ${{ env.CLUSTER_NAME }} -g ${{ env.RESOURCE_GROUP }} --attach-acr ${{ env.AZURE_CONTAINER_REGISTRY }}
+      # Builds and pushes an image up to your Azure Container Registry using az cli
+      - name: Build and push image to ACR
+        run: |
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} ./service/db-svc
 
-    # Deploys application based on given manifest file
-    - name: Deploys application
-      uses: Azure/k8s-deploy@v3.0
-      with:
-        action: deploy
-        manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
-        images: |
-          ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
+      # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
+      - name: Get K8s context
+        uses: azure/aks-set-context@v2.0
+        with:
+          resource-group: ${{ env.RESOURCE_GROUP }}
+          cluster-name: ${{ env.CLUSTER_NAME }}
+
+      # Attaches ACR to your AKS Cluster
+      # - name: Attach ACR to AKS cluster
+      #   run: |
+      #     az aks update -n ${{ env.CLUSTER_NAME }} -g ${{ env.RESOURCE_GROUP }} --attach-acr ${{ env.AZURE_CONTAINER_REGISTRY }}
+
+      # Deploys application based on given manifest file
+      - name: Deploys application
+        uses: Azure/k8s-deploy@v3.0
+        with:
+          action: deploy
+          manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
+          images: |
+            ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
